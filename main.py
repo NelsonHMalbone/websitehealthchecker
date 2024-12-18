@@ -8,10 +8,11 @@ def send_requests_to_websites(filepath):
                 url = line.strip()  # removes any whitespaces
                 response = requests.get(url)
                 response.raise_for_status()
-                print(f'response for {url}: {response.status_code}')
-        except:
-
-            print(f'An error occured:')
+                respone_time = response.elapsed
+                on_off_stat = ['online' if response.status_code <= 200 else 'Offline']
+                print(f'response for {url}: {response.status_code} - {on_off_stat}')
+        except requests.exceptions.RequestException as e:
+            print(f'An error occured: {e}')
 
 
 filepath = 'websites.txt'
